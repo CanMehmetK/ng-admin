@@ -1,0 +1,167 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+// @import '~@angular/material/theming';
+@import 'style/hive';
+// Plus imports for other components in your app.
+
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+
+// Partials
+@import 'style/partials/normalize';
+//@import 'style/partials/scrollbars';
+//@import 'style/partials/helpers';
+@import 'style/partials/general';
+//@import 'style/partials/icons';
+@import 'style/partials/colors';
+@import 'style/partials/material';
+//@import 'style/partials/angular-material-fix';
+@import 'style/partials/typography';
+//@import 'style/partials/docs';
+@import 'style/partials/page-layouts';
+@import 'style/partials/cards';
+@import 'style/partials/navigation';
+//@import 'style/partials/forms';
+//@import 'style/partials/print';
+
+// Thirth Party - Plugin Styles
+
+// Custom Components' Styles
+@import "app/components/theme-options/theme-options-theme";
+@import "app/auth/login/login.theme";
+// Define a mixin for easier access
+@mixin components-theme($theme) {
+  @include hive-theme-options-theme($theme);
+  @include login-theme($theme);
+  .apps-toggle {
+    mat-button-toggle .mat-button-toggle-label-content {
+      padding: 0 7px !important;
+      line-height: initial !important;
+      vertical-align: middle !important;
+    }
+
+    .app-icon img {
+      max-width: 36px;
+    }
+
+    .app-title {
+    }
+  }
+}
+
+app-root {
+  width: 100%;
+  background: #e4e5e6 url(assets/images/logos/hive.png) no-repeat fixed center center !important;
+  -webkit-background-size: auto;
+  -moz-background-size: auto;
+  -o-background-size: auto;
+  background-size: auto;
+}
+
+@mixin hive-base-material-theme($theme) {
+  @include colors-theme($theme);
+  // @include cards-theme($theme);
+  @include material-theme($theme);
+  @include page-layouts-theme($theme);
+  @include login-theme($theme);
+  @include typography-theme($theme);
+
+  // @include hive-countdown-theme($theme);
+  // @include hive-search-bar-theme($theme);
+  //@include hive-favs-theme($theme);
+  //@include hive-sidebar-theme($theme);
+  @include hive-theme-options-theme($theme);
+  //@include color-picker-theme($theme);
+  // @include hive-widget-theme($theme);
+  // Theming for 3rd party components
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ Custom color maps
+// -----------------------------------------------------------------------------------------------------
+$hive-white: (500: white, contrast: (500: $dark-primary-text,),);
+$hive-black: (500: black, contrast: (500: $light-primary-text,),);
+$hive-navy: (
+  50: #ececee,
+  100: #c5c6cb,
+  200: #9ea1a9,
+  300: #7d818c,
+  400: #5c616f,
+  500: #3c4252,
+  600: #353a48,
+  700: #2d323e,
+  800: #262933,
+  900: #1e2129,
+  A100: #c5c6cb,
+  A200: #9ea1a9,
+  A400: #5c616f,
+  A700: #2d323e,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ),
+);
+
+// Generate color classes for custom palettes
+$custom_palettes: (hive-white: $hive-white, hive-black: $hive-black, hive-navy: $hive-navy,);
+@include hive-color-classes($custom_palettes);
+
+
+// -----------------------------------------------------------------------------------------------------
+// Typography
+// -----------------------------------------------------------------------------------------------------
+
+// Angular Material typography
+$typography: mat-typography-config(
+  $font-family: 'Muli, Helvetica Neue, Arial, sans-serif',
+  $title: mat-typography-level(20px, 32px, 600),
+  $body-2: mat-typography-level(14px, 24px, 600),
+  $button: mat-typography-level(14px, 14px, 600),
+  $input: mat-typography-level(16px, 1.125, 400) // line-height must be unitless !!!,,,,,,,,,,,,,,,,
+);
+
+// Setup the typography
+@include angular-material-typography($typography);
+
+
+// -----------------------------------------------------------------------------------------------------
+// @ Define the default theme
+// -----------------------------------------------------------------------------------------------------
+
+// Define the primary, accent and warn palettes
+$default-primary-palette: mat-palette($hive-navy);
+$default-accent-palette: mat-palette($mat-light-blue, 600, 400, 700);
+$default-warn-palette: mat-palette($mat-red);
+
+// Create the Material theme object
+$theme: mat-light-theme($default-primary-palette, $default-accent-palette, $default-warn-palette);
+
+body.theme-default {
+  @include angular-material-theme($theme);
+  @include hive-base-material-theme($theme);
+  @include components-theme($theme);
+
+  $palettes: (
+    primary: $default-primary-palette,
+    accent: $default-accent-palette,
+    warn: $default-warn-palette,
+  );
+
+  @include hive-color-classes($palettes);
+}

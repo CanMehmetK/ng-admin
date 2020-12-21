@@ -1,0 +1,55 @@
+
+@keyframes rotating {
+  from {
+    transform : rotate(0deg);
+  }
+
+  to {
+    transform : rotate(360deg);
+  }
+}
+
+hive-theme-options {
+  overflow : hidden;
+
+  .theme-options-panel {
+    height                     : Calc(100vh - 70px);
+    -webkit-overflow-scrolling : touch;
+    overflow-y                 : auto;
+    overflow-x                 : hidden;
+
+    .content {
+      background-color : #fafafa !important;
+      margin           : 8px !important;
+
+      mat-accordion {
+        mat-expansion-panel {
+          box-shadow : none !important;
+          border     : 1px solid rgba(0, 0, 0, 0.2) !important;
+
+          mat-expansion-panel-header,
+          mat-expansion-panel-header.mat-expanded {
+            font-weight : bold;
+          }
+
+          .mat-expansion-panel-body {
+            padding : 0 5px 5px 5px !important;
+          }
+        }
+
+        .mat-expansion-panel-spacing {
+          margin : 5px 0 !important;
+        }
+
+        mat-radio-button, mat-slide-toggle-content {
+          font-size : 14px !important;
+          padding   : 5px 5px 0 0 !important;
+
+          .mat-radio-label-content, .mat-slide-toggle-content {
+            padding-left : 5px !important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<div class="selectapp-wrapper">
+    <mat-button-toggle-group (change)="appChanged(currentUserApp)" *ngIf="userApps.length"
+            [(ngModel)]="currentUserApp"
+            aria-label="Uygulamalar"
+            class="apps-toggle"
+            name="apps">
+        <mat-button-toggle *ngFor="let userApp of userApps" [value]="userApp">
+          <span *ngIf="userApp.Icon" class="app-icon"><img [src]="userApp.Icon"></span>
+          <span *ngIf="!userApp.Icon " class="app-title">
+            {{userApp.Title ? userApp.Title.substring(0, 2) : userApp.Name.substring(0, 2)}}
+          </span>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+</div>

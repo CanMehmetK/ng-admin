@@ -1,0 +1,65 @@
+@import '../../style/hive';
+
+:host {
+  .theme-options-button {
+    position: absolute;
+    bottom: 70px;
+    right: 5px;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    cursor: pointer;
+    margin: 0;
+    pointer-events: auto;
+    opacity: 0.8;
+    z-index: 998;
+
+    &.right-side-panel {
+      @include media-breakpoint('gt-md') {
+        right: 70px;
+      }
+    }
+
+    &.side-panel-hidden {
+      right: 0 !important;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .theme-options-sidebar {
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+  }
+}
+
+.mat-sidenav {
+  min-width: 270px;
+  max-width: 28%;
+}
+
+.has-border {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-list {
+  padding-top: 0;
+}
+
+.mat-list-item {
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.menu-button {
+  margin-right: 1rem;
+}
+
+

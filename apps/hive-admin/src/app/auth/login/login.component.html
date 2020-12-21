@@ -1,0 +1,268 @@
+<div class="inner-scroll" fxLayout="row" fxLayoutAlign="start" id="login">
+  <div fxFlex fxHide fxShow.gt-xs id="login-intro">
+    <div [@animate]="{ value: '*', params: { scale: '0.2' } }" class="logo">
+      <img src="assets/images/logos/application_hive_t.png" />
+    </div>
+    <div
+      [@animate]="{ value: '*', params: { delay: '50ms', y: '25px' } }"
+      class="title"
+      translate
+    >
+      Application Hive
+    </div>
+    <div
+      [@animate]="{ value: '*', params: { delay: '100ms', y: '25px' } }"
+      class="description"
+    ></div>
+  </div>
+  <div
+    [@animate]="{ value: '*', params: { delay: '300ms', x: '100%' } }"
+    id="login-form-wrapper"
+  >
+    <div *ngIf="state == 'login'" id="login-form">
+      <div class="logo" fxHide.gt-xs>
+        <img src="assets/images/logos/hive.png" />
+      </div>
+      <div class="title" translate>Login with your account</div>
+      <form
+        (ngSubmit)="login()"
+        [formGroup]="loginForm"
+        name="loginForm"
+        novalidate
+      >
+        <div [hidden]="!error" class="login-error" translate>
+          Username or password incorrect.
+        </div>
+        <!-- Email Field-->
+        <mat-form-field [hideRequiredMarker]="true" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            [placeholder]="'Email' | translate"
+            autocomplete="username"
+            formControlName="username"
+            matInput
+            required
+            type="text"
+          />
+          <mat-icon class="secondary-text" matSuffix>mail</mat-icon>
+          <mat-error
+            *ngIf="
+              loginForm.controls.username.invalid &&
+              loginForm.controls.username.touched
+            "
+          >
+            <span translate>Email is required</span>
+          </mat-error>
+        </mat-form-field>
+        <!-- Password Field -->
+        <mat-form-field [hideRequiredMarker]="true" appearance="outline">
+          <mat-label translate>Password</mat-label>
+          <input
+            #psw
+            [placeholder]="'Password' | translate"
+            autocomplete="current-password"
+            formControlName="password"
+            matInput
+            required
+            type="password"
+          />
+          <div class="secondary-text" matSuffix>
+            <mat-icon
+              (click)="hide = PasswordReveal(hide, psw)"
+              style="display: inline-block"
+              >{{ hide ? "visibility" : "visibility_off" }}</mat-icon
+            >
+          </div>
+          <mat-error
+            *ngIf="
+              loginForm.controls.password.invalid &&
+              loginForm.controls.password.touched
+            "
+          >
+            <span translate>Password is required</span>
+          </mat-error>
+        </mat-form-field>
+        <div
+          class="remember-forgot-password"
+          fxLayout="row"
+          fxLayout.xs="column"
+          fxLayoutAlign="space-between center"
+        >
+          <mat-checkbox
+            aria-label="Remember Me"
+            class="remember-me"
+            formControlName="remember"
+            translate
+            >Remember Me
+          </mat-checkbox>
+          <a (click)="forgotPass()" class="forgot-password" translate
+            >Forgot Password</a
+          >
+        </div>
+        <button
+          [disabled]="loginForm.invalid"
+          class="submit-button"
+          color="primary"
+          mat-raised-button
+          type="submit"
+        >
+          <span translate>Login</span>
+        </button>
+
+      </form>
+      <div class="separator"><span class="text" translate>&nbsp;</span></div>
+      <div *ngIf="!production">
+          <button
+            *ngFor="let testUser of testUsers"
+            (click)="testLogin(testUser.email, testUser.pass)"
+            class="submit-button"
+            color="primary"
+            mat-raised-button
+          >
+            <span translate>{{ testUser.title }}</span>
+          </button>
+        </div>
+    </div>
+
+    <div *ngIf="state == 'forgot'" id="forgot-form">
+      <div class="logo" fxHide.gt-xs>
+        <img src="assets/images/logos/hive.svg" />
+      </div>
+
+      <div class="title" translate>Reset Password</div>
+
+      <form
+        [formGroup]="forgotPasswordForm"
+        name="forgoPasswordForm"
+        novalidate
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input formControlName="email" matInput />
+          <mat-icon class="secondary-text" matSuffix>mail</mat-icon>
+          <mat-error
+            *ngIf="forgotPasswordForm.get('email').hasError('required')"
+            translate
+          >
+            Email is required
+          </mat-error>
+          <mat-error
+            *ngIf="forgotPasswordForm.get('email').hasError('email')"
+            translate
+          >
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          (click)="resetPassword()"
+          [disabled]="forgotPasswordForm.invalid"
+          aria-label="reset"
+          class="submit-button"
+          color="accent"
+          mat-raised-button
+          translate
+        >
+          Şifre resetleme linki gönder.
+        </button>
+      </form>
+    </div>
+    <div *ngIf="state == 'reset'" id="reset-form">
+      <div class="title" translate>RESET YOUR PASSWORD</div>
+
+      <form [formGroup]="resetPasswordForm" name="resetPasswordForm" novalidate>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input [readonly]="true" formControlName="Email" matInput />
+          <mat-icon class="secondary-text" matSuffix>mail</mat-icon>
+          <mat-error
+            *ngIf="resetPasswordForm.get('Email').hasError('required')"
+            translate
+          >
+            Email is required
+          </mat-error>
+          <mat-error
+            *ngIf="resetPasswordForm.get('Email').hasError('email')"
+            translate
+          >
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label translate>Password</mat-label>
+          <input
+            #passwordWithValidation
+            formControlName="Password"
+            matInput
+            type="password"
+          />
+          <mat-icon
+            (click)="hide1 = PasswordReveal(hide1, passwordWithValidation)"
+            style="display: inline-block"
+            >{{ hide1 ? "visibility" : "visibility_off" }}</mat-icon
+          >
+          <mat-error translate> Password is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label translate>Password (Confirm)</mat-label>
+          <input #psw2 formControlName="Password2" matInput type="password" />
+          <mat-icon
+            (click)="hide2 = PasswordReveal(hide2, psw2)"
+            style="display: inline-block"
+            >{{ hide2 ? "visibility" : "visibility_off" }}</mat-icon
+          >
+
+          <mat-error
+            *ngIf="resetPasswordForm.get('Password2').hasError('required')"
+            translate
+          >
+            Password confirmation is required
+          </mat-error>
+          <mat-error
+            *ngIf="
+              !resetPasswordForm.get('Password2').hasError('required') &&
+              resetPasswordForm
+                .get('Password2')
+                .hasError('passwordsNotMatching')
+            "
+            translate
+          >
+            Passwords must match
+          </mat-error>
+        </mat-form-field>
+        <mat-password-strength
+          #passwordStrength
+          (onStrengthChanged)="onStrengthChanged($event)"
+          [password]="passwordWithValidation.value"
+        ></mat-password-strength>
+
+        <mat-password-strength-info
+          [passwordComponent]="passwordStrength"
+          digitsCriteriaMsg="Şifre bir rakam içermeli"
+          lowerCaseCriteriaMsg="Şifre bir küçük harf içermeli"
+          minCharsCriteriaMsg="Şifre en az 8 karakter uzunluğunda olmalı"
+          specialCharsCriteriaMsg="Şifre bir özel karakter içermeli (_*!?#$+,/%& gibi)"
+          upperCaseCriteriaMsg="Şifre bir büyük harf içermeli"
+        ></mat-password-strength-info>
+
+        <button
+          (click)="setPassword()"
+          [disabled]="resetPasswordForm.invalid"
+          aria-label="reset"
+          class="submit-button"
+          color="accent"
+          mat-raised-button
+          translate
+        >
+          Şifremi Yenile
+        </button>
+      </form>
+
+      <div class="login" fxLayout="row" fxLayoutAlign="center center">
+        <a (click)="state = 'login'" class="link" translate>Go back to login</a>
+      </div>
+    </div>
+  </div>
+</div>

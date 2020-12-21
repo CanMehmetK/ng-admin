@@ -1,0 +1,36 @@
+<div
+  [ngClass]="appConfig.layout.navbar.secondaryBackground" class="navbar-top">
+    <div class="logo">
+        <img
+          class="logo-icon" src="assets/images/logos/hive.svg"/> <span class="logo-text ">{{ appConfig.appName }}</span>
+    </div>
+    <div class="buttons">
+        <button
+          (click)="toggleSidebarFolded()" class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <button
+          (click)="toggleSidebarOpened()" class="toggle-sidebar-opened" fxHide.gt-md mat-icon-button>
+            <mat-icon class="secondary-text">arrow_back</mat-icon>
+        </button>
+    </div>
+</div>
+
+<div
+  [ngClass]="appConfig.layout.navbar.primaryBackground" class="navbar-scroll-container" hiveCustomScroll>
+
+    <div
+      [ngClass]="appConfig.layout.navbar.secondaryBackground" class="user" fxLayout="column">
+        <div class="h3 username">{{ adisoyadi }}</div>
+        <div class="h5 email hint-text mt-8">{{ emailadresi }}</div>
+        <div
+          [ngClass]="appConfig.layout.navbar.primaryBackground" class="avatar-container">
+            <img
+              class="avatar" src="assets/images/avatars/anonym.png"/>
+        </div>
+    </div>
+    <div class="navbar-content">
+        <hive-menu
+          class="material2" layout="vertical"></hive-menu>
+    </div>
+</div>

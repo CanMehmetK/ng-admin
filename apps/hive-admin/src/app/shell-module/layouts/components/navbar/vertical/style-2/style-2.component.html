@@ -1,0 +1,15 @@
+<div class="navbar-header" [ngClass]="appConfig.layout.navbar.secondaryBackground">
+    <div class="logo">
+        <img class="logo-icon" src="assets/images/logos/hive.svg" />
+        <span class="logo-text">{{ appConfig.appName }}</span>
+    </div>
+    <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" fxHide.lt-lg>
+    <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-icon-button class="toggle-sidebar-opened" (click)="toggleSidebarOpened()" fxHide.gt-md>
+    <mat-icon>arrow_back</mat-icon>
+    </button>
+</div>
+<div [ngClass]="appConfig.layout.navbar.primaryBackground" class="navbar-content">
+    <hive-menu layout="vertical"></hive-menu>
+</div>

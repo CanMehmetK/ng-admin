@@ -1,0 +1,76 @@
+<ng-container *ngIf="!appConfig.layout.sidepanel.hidden && appConfig.layout.sidepanel.position === 'left'">
+</ng-container>
+<div id="main">
+  <ng-container *ngIf="appConfig.layout.toolbar.position === 'above'">
+    <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+  </ng-container>
+  <div class="container" id="container-1">
+    <ng-container *ngIf="appConfig.layout.navbar.position === 'left'">
+      <ng-container *ngTemplateOutlet="leftNavbar"></ng-container>
+    </ng-container>
+    <div class="container" id="container-2">
+      <ng-container *ngIf="appConfig.layout.toolbar.position === 'below-fixed'">
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+      </ng-container>
+      <div class="container" hiveCustomScroll id="container-3">
+        <ng-container *ngIf="appConfig.layout.toolbar.position === 'below-static'">
+          <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+        </ng-container>
+        <router-outlet *ngIf="true"></router-outlet>
+        <ng-container *ngIf="appConfig.layout.footer.position === 'below-static'">
+  <ng-container *ngTemplateOutlet="footer"></ng-container>
+</ng-container>
+      </div>
+
+      <ng-container *ngIf="appConfig.layout.footer.position === 'below-fixed'">
+<ng-container *ngTemplateOutlet="footer"></ng-container>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="appConfig.layout.navbar.position === 'right'">
+      <ng-container *ngTemplateOutlet="rightNavbar"></ng-container>
+    </ng-container>
+  </div>
+  <ng-container *ngIf="appConfig.layout.footer.position === 'above'">
+    <ng-container *ngTemplateOutlet="footer"></ng-container>
+  </ng-container>
+</div>
+<ng-container *ngIf="!appConfig.layout.sidepanel.hidden && appConfig.layout.sidepanel.position === 'right'">
+</ng-container>
+
+<hive-sidebar
+  class="quick-panel" name="quickPanel" position="right"></hive-sidebar>
+
+<ng-template #toolbar>
+  <toolbar
+    *ngIf="!appConfig.layout.toolbar.hidden" [ngClass]="
+      appConfig.layout.toolbar.customBackgroundColor === true
+? appConfig.layout.toolbar.position +
+  ' ' +
+  appConfig.layout.toolbar.background
+: appConfig.layout.toolbar.position
+    "></toolbar>
+</ng-template>
+
+<ng-template #footer>
+  <footer *ngIf="!appConfig.layout.footer.hidden" [ngClass]="appConfig.layout.footer.customBackgroundColor === true ? appConfig.layout.footer.position +
+  ' ' +
+  appConfig.layout.footer.background
+: appConfig.layout.footer.position
+    "></footer>
+</ng-template>
+
+<ng-template #leftNavbar>
+  <hive-sidebar
+    *ngIf="!appConfig.layout.navbar.hidden" [folded]="appConfig.layout.navbar.folded" class="navbar-hive-sidebar" lockedOpen="gt-md" name="navbar">
+    <navbar
+      [variant]="appConfig.layout.navbar.variant" class="left-navbar"></navbar>
+  </hive-sidebar>
+</ng-template>
+
+<ng-template #rightNavbar>
+  <hive-sidebar
+    *ngIf="!appConfig.layout.navbar.hidden" [folded]="appConfig.layout.navbar.folded" class="navbar-hive-sidebar" lockedOpen="gt-md" name="navbar" position="right">
+    <navbar
+      [variant]="appConfig.layout.navbar.variant" class="right-navbar"></navbar>
+  </hive-sidebar>
+</ng-template>

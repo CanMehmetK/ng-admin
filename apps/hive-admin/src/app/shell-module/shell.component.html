@@ -1,0 +1,17 @@
+<ng-template layout-host></ng-template>
+<div *ngIf="env.use_hive_demos==true">
+    <button mat-icon-button
+            (click)="toggleSidebarOpen('themeOptionsPanel')"
+            matTooltip="Drag me around"
+            cdkDrag
+            (cdkDragStarted)="handleDragStart($event)"
+            class="primary mat-elevation-z2 theme-options-button">
+    <mat-icon>settings</mat-icon>
+    </button>
+    <hive-sidebar [invisibleOverlay]="true"
+                  name="themeOptionsPanel"
+                  class="theme-options-sidebar "
+                  position="right">
+        <hive-theme-options></hive-theme-options>
+    </hive-sidebar>
+</div>

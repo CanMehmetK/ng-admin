@@ -1,0 +1,62 @@
+{
+  "api": {
+    "login": {
+      "admin": {
+        "Id": "A383B84F-A473-4D21-A0E0-F7EFC2D090ED",
+        "Adi": "",
+        "Soyadi": "",
+        "Email": "admin@applicationhive.com",
+        "Username": "admin@applicationhive.com",
+        "Token": "x",
+        "UserMenu": [
+          {
+            "app": "ADMIN",
+            "id": "g1",
+            "icon": "/assets/images/logos/application_hive_t.png",
+            "start":"/admin",
+            "title": "Admin App",
+            "type": "group",
+            "children": [
+              {
+                "app": "ADMIN",
+                "id": "c1",
+                "title": "Admin Coll",
+                "type": "collapsable",
+                "children": [
+                  {
+                    "app": "ADMIN",
+                    "id": "i1",
+                    "title": "Admin item",
+                    "type": "item",
+                    "url": "/admin/page1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "app": "TEST",
+            "id": "t1",
+            "icon": "",
+            "start":"/test",
+            "title": "Test App",
+            "type": "group",
+            "children":[]
+          }
+        ]
+      },
+      "user": {
+        "Id": "A383B84F-A473-4D21-A0E0-F7EFC2D090ED",
+        "Adi": "",
+        "Soyadi": "",
+        "Email": "admin@applicationhive.com",
+        "Username": "admin@applicationhive.com",
+        "Token": "x",
+        "UserMenu": []
+      }
+    },
+    "applications": [
+
+    ]
+  }
+}

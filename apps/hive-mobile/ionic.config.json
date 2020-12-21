@@ -1,0 +1,8 @@
+{
+  "id": "hive-mobile",
+  "name": "hive-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

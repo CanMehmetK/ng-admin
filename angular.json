@@ -1,0 +1,357 @@
+{
+  "version": 1,
+  "projects": {
+    "hive-admin": {
+      "projectType": "application",
+      "schematics": { "@schematics/angular:component": { "style": "scss" }      },
+      "root": "apps/hive-admin",
+      "sourceRoot": "apps/hive-admin/src",
+      "prefix": "hive",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/hive-admin",
+            "index": "apps/hive-admin/src/index.html",
+            "main": "apps/hive-admin/src/main.ts",
+            "polyfills": "apps/hive-admin/src/polyfills.ts",
+            "tsConfig": "apps/hive-admin/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/hive-admin/src/favicon.ico",
+              "apps/hive-admin/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/hive-admin/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            },
+            "hmr": {
+              "budgets": [
+                { "type": "anyComponentStyle", "maximumWarning": "6kb" }
+              ],
+              "fileReplacements": [
+                { "replace": "environments/environment.ts", "with": "environments/environment.hmr.ts" }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "hive-admin:build"
+          },
+          "configurations": {
+            "production": { "browserTarget": "hive-admin:build:production" },
+            "hmr": { "hmr": true, "browserTarget": "hive-admin:build:hmr" }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "hive-admin:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/hive-admin/src/**/*.ts",
+              "apps/hive-admin/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/hive-admin"],
+          "options": {
+            "jestConfig": "apps/hive-admin/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "hive-admin-e2e": {
+      "root": "apps/hive-admin-e2e",
+      "sourceRoot": "apps/hive-admin-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/hive-admin-e2e/cypress.json",
+            "tsConfig": "apps/hive-admin-e2e/tsconfig.e2e.json",
+            "devServerTarget": "hive-admin:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "hive-admin:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/hive-admin-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "hive-mobile": {
+      "root": "apps/hive-mobile",
+      "sourceRoot": "apps/hive-mobile/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": { "@schematics/angular:component": { "style": "scss" }      },
+      "prefix": "hivemobile",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "www",
+            "index": "apps/hive-mobile/src/index.html",
+            "main": "apps/hive-mobile/src/main.ts",
+            "polyfills": "apps/hive-mobile/src/polyfills.ts",
+            "tsConfig": "apps/hive-mobile/tsconfig.app.json",
+            "assets": [
+              {"glob": "**/*","input": "src/assets","output": "assets"},
+              {"glob": "**/*.svg","input": "node_modules/ionicons/dist/ionicons/svg","output": "./svg"}
+            ],
+
+            "styles": [
+              {"input": "apps/hive-mobile/src/theme/variables.scss"},
+              {"input": "apps/hive-mobile/src/global.scss"}
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "ci": {
+              "progress": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "hive-mobile:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "hive-mobile:build:production"
+            },
+            "ci": {
+              "progress": false
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "hive-mobile:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/hive-mobile/src/test.ts",
+            "polyfills": "apps/hive-mobile/src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "styles": [],
+            "scripts": [],
+            "assets": [
+              {
+                "glob": "favicon.ico",
+                "input": "apps/hive-mobile/src/",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "apps/hive-mobile/src/assets",
+                "output": "/assets"
+              }
+            ]
+          },
+          "configurations": {
+            "ci": {
+              "progress": false,
+              "watch": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "hive-mobile:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "hive-mobile:serve:production"
+            },
+            "ci": {
+              "devServerTarget": "hive-mobile:serve:ci"
+            }
+          }
+        },
+        "ionic-cordova-build": {
+          "builder": "@ionic/angular-toolkit:cordova-build",
+          "options": {
+            "browserTarget": "hive-mobile:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "hive-mobile:build:production"
+            }
+          }
+        },
+        "ionic-cordova-serve": {
+          "builder": "@ionic/angular-toolkit:cordova-serve",
+          "options": {
+            "cordovaBuildTarget": "hive-mobile:ionic-cordova-build",
+            "devServerTarget": "hive-mobile:serve"
+          },
+          "configurations": {
+            "production": {
+              "cordovaBuildTarget": "hive-mobile:ionic-cordova-build:production",
+              "devServerTarget": "hive-mobile:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "hivelib-hivelib": {
+      "projectType": "library",
+      "root": "libs/hivelib",
+      "sourceRoot": "libs/hivelib/src",
+      "prefix": "hivelib",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "libs/hivelib/tsconfig.lib.json",
+            "project": "libs/hivelib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/hivelib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/hivelib/src/**/*.ts",
+              "libs/hivelib/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/hivelib"],
+          "options": {
+            "jestConfig": "libs/hivelib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint",
+        "unitTestRunner": "jest",
+        "e2eTestRunner": "protractor"
+      },
+      "library": {
+        "linter": "eslint",
+        "unitTestRunner": "jest"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress",
+      "strict": true
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest",
+      "strict": true
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "hive-admin"
+}

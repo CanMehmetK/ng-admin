@@ -1,0 +1,122 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Theme Options</span> <span class="flex-spacer"></span>
+    <button mat-icon-button (click)="configSectionAllCollapse()">
+      <mat-icon>{{
+        allCollapsed == true ? 'unfold_more' : 'unfold_less'
+        }}</mat-icon>
+    </button>
+    <button
+      mat-icon-button class="close-button" (click)="toggleSidebarOpen('themeOptionsPanel')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<cdk-virtual-scroll-viewport itemSize="20" class="theme-options-panel">
+  <div class="content">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Theme & Color</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-radio-group name="theme" [(ngModel)]="appConfig.theme">
+          <mat-radio-button value="light">Light</mat-radio-button>
+          <mat-radio-button value="dark">Dark</mat-radio-button>
+        </mat-radio-group>
+        <mat-radio-group
+          fxLayout="row wrap" fxLayoutAlign="start start" [(ngModel)]="appConfig.colorTheme" (ngModelChange)="hiveConfigService.setConfig(appConfig)">
+          <mat-radio-button
+            value="theme-default">Default Light</mat-radio-button>
+          <mat-radio-button
+            value="theme-yellow-light">Yellow Light</mat-radio-button>
+          <mat-radio-button
+            value="theme-blue-gray-dark">Blue-Gray Dark</mat-radio-button>
+          <mat-radio-button value="theme-pink-dark">Pink Dark</mat-radio-button>
+        </mat-radio-group>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Layout Styles</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-radio-group
+          fxLayout="row" fxLayoutAlign="start start" [(ngModel)]="appConfig.layout.width" (ngModelChange)="hiveConfigService.setConfig(appConfig)">
+          <mat-radio-button value="fullwidth">Fullwidth</mat-radio-button>
+          <mat-radio-button value="boxed">Boxed</mat-radio-button>
+        </mat-radio-group>
+        <mat-radio-group
+          fxLayoutAlign="start start" [(ngModel)]="appConfig.layout.style" (ngModelChange)="hiveConfigService.setConfig(appConfig)">
+          <mat-radio-button value="vertical-1">Vert.#1</mat-radio-button>
+          <mat-radio-button value="vertical-2">Vert.#2</mat-radio-button>
+          <mat-radio-button value="vertical-3">Vert.#3</mat-radio-button>
+          <mat-radio-button value="horizontal-1">Horz.#1</mat-radio-button>
+        </mat-radio-group>
+        <mat-slide-toggle
+          [(ngModel)]="appConfig.customScrollbars">Enable custom scrollbars</mat-slide-toggle>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Navbar</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-slide-toggle
+          [(ngModel)]="appConfig.layout.navbar.hidden">Hide</mat-slide-toggle>
+        <mat-slide-toggle
+          [(ngModel)]="appConfig.layout.navbar.folded">Folded</mat-slide-toggle>
+        <mat-radio-group
+          fxLayout="row wrap" fxLayoutAlign="start start" [(ngModel)]="appConfig.layout.navbar.position" (ngModelChange)="hiveConfigService.setConfig(appConfig)">
+          <mat-radio-button value="start">Left</mat-radio-button>
+          <mat-radio-button value="end">Right</mat-radio-button>
+        </mat-radio-group>
+        <mat-radio-group
+          fxLayoutAlign="start start" [(ngModel)]="appConfig.layout.navbar.variant" (ngModelChange)="hiveConfigService.setConfig(appConfig)">
+          <mat-radio-button
+            value="vertical-style-1">Show User Panel</mat-radio-button>
+          <mat-radio-button
+            value="vertical-style-2">Hide User Panel</mat-radio-button>
+        </mat-radio-group>
+        <div fxLayout="row">
+          <hive-color-menu
+            buttonText="Navbar" [(ngModel)]="appConfig.layout.navbar.primaryBackground"></hive-color-menu>
+          <hive-color-menu
+            buttonText="NavToolbar" [(ngModel)]="appConfig.layout.navbar.secondaryBackground"></hive-color-menu>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Toolbar</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-slide-toggle
+          [(ngModel)]="appConfig.layout.toolbar.hidden" (ngModelChange)="hiveConfigService.setConfig(appConfig)">Hide
+        </mat-slide-toggle>
+        <mat-radio-group
+          fxLayoutAlign="start start" [(ngModel)]="appConfig.layout.toolbar.position" (ngModelChange)="hiveConfigService.setConfig(appConfig)">
+          <mat-radio-button value="above">Above</mat-radio-button>
+          <mat-radio-button value="below-static">Below Static</mat-radio-button>
+          <mat-radio-button value="below-fixed">Below Fixed</mat-radio-button>
+        </mat-radio-group>
+        <mat-checkbox
+          [(ngModel)]="appConfig.layout.toolbar.customBackgroundColor">Use custom background color
+        </mat-checkbox>
+        <hive-color-menu
+          buttonText="Background color" [(ngModel)]="appConfig.layout.toolbar.background"></hive-color-menu>
+      </mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Footer</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-slide-toggle
+          [(ngModel)]="appConfig.layout.footer.hidden">Hide</mat-slide-toggle>
+        <mat-radio-group
+          fxLayoutAlign="start start" [(ngModel)]="appConfig.layout.footer.position">
+          <mat-radio-button value="above">Above</mat-radio-button>
+          <mat-radio-button value="below-static">Below Static</mat-radio-button>
+          <mat-radio-button value="below-fixed">Below Fixed</mat-radio-button>
+        </mat-radio-group>
+        <mat-checkbox
+          [(ngModel)]="appConfig.layout.footer.customBackgroundColor">Use custom background color
+        </mat-checkbox>
+        <hive-color-menu
+          buttonText="Background Color" [(ngModel)]="appConfig.layout.footer.background"></hive-color-menu>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</cdk-virtual-scroll-viewport>

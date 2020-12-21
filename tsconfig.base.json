@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "strictNullChecks": false,
+    "paths": {
+      "@environments": ["environments/"],
+      "@environments/*": ["environments/*"],
+      "@hive/": ["apps/hive-admin/src/app"],
+      "@hive/*": ["apps/hive-admin/src/app/*"],
+      "@hivelib": ["libs/hivelib/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
