@@ -55,20 +55,37 @@ tslint -> eslint geçişi..
 
 #####Dipnot
 * J: For Junior in Turkish.
+
 npm init nx-workspace hive --npm-scope=hive --preset=angular --app-name=hive-admin --linter=eslint --no-nx-cloud --style=scss --package-manager=npm
+
 cd hive
+
 npx json -I -f nx.json -e "this.affected.defaultBase = 'main';"
+
 npx json -I -f angular.json -e "this.cli.packageManager = 'npm';"
+
 npm uninstall codelyzer tslint
+
 npx json -I -f angular.json -e "this.schematics['@nrwl/angular:application'].strict = true;"
+
 npx json -I -f angular.json -e "this.schematics['@nrwl/angular:library'].strict = true;"
+
 npx json -I -f angular.json -e "this.schematics['@nrwl/angular'].application.unitTestRunner = 'jest';"
+
 npx json -I -f angular.json -e "this.schematics['@nrwl/angular'].library.unitTestRunner = 'jest';"
+
 npx json -I -f angular.json -e "this.schematics['@nrwl/angular'].application.e2eTestRunner = 'protractor';"
+
 nx generate remove hive-admin-e2e
+
 nx generate remove hive-admin
+
 nx generate @nrwl/angular:application --name=hive-admin --prefix=hive --tags="type:app,scope:hive" --no-interactive
+
 npx json -I -f nx.json -e "this.projects['hive-admin-e2e'].tags = ['type:e2e','scope:hive'];"
+
 npx json -I -f angular.json -e "this.projects['hive-admin'].architect.build.configurations.production.budgets = [{ type: 'initial', maximumWarning: '500kb', maximumError: '1mb' }, { type: 'anyComponentStyle', maximumWarning: '2kb', maximumError: '4kb' }];"
+
 nx generate @nrwl/angular:library --name=hivelib --directory=hivelib --prefix=hivelib --tags="type:feature,scope:hive" --buildable --no-interactive
+
 npm uninstall codelyzer
